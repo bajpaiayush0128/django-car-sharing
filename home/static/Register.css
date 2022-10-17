@@ -1,0 +1,92 @@
+html body {
+  /* background-color: aliceblue; */
+  background-image: linear-gradient(
+    to right top,
+    #134187,
+    #68448d,
+    #9c4888,
+    #c3547a,
+    #dc6a6a
+  );
+  font-family: 'Merriweather', serif;
+}
+
+.h-100 {
+  padding-top: 2%;
+}
+
+.h-custom .text-uppercase {
+  color: beige;
+}
+
+.row {
+  margin-top: -15px;
+}
+
+.Log-title {
+  padding-top: 0.5%;
+}
+
+.Log-title h2 {
+  color: #007bff;
+  font-family: "Lato", sans-serif;
+}
+
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+.h-custom {
+  height: calc(100% - 73px);
+  padding-top: 15px;
+}
+
+.small {
+  padding-bottom: 10px;
+}
+
+#checkit {
+  margin-right: 1%;
+}
+
+form .form-control {
+  border-radius: 25px;
+}
+
+.d-flex .btn {
+  border-radius: 30px;
+}
+
+form .form-label {
+  font-weight: bold;
+}
+
+.row .form-control {
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+/* Styling Placeholder text */
+
+::-webkit-input-placeholder {
+  font-size: 13px;
+}
+::-moz-placeholder {
+  font-size: 13px;
+}
+:-ms-input-placeholder {
+  font-size: 13px;
+}
+::placeholder {
+  font-size: 13px;
+}
+
+@media (max-width: 450px) {
+  .h-custom {
+    height: 100%;
+  }
+}
