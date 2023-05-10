@@ -10,16 +10,29 @@ body h3 {
 
 /* Top Section */
 
-body{
+/* body{
   background-color: #4169e1;
-}
-body #top-section {
+} */
+/* body #top-section {
   text-align: center;
 }
 
-#top-section {
-  background-color: #4169e1;
+body,h1 {
+  font-family: "Raleway", sans-serif
 }
+body, html {
+  height: 100%
+} */
+.top-container {
+background-image: url('/static/image1.jpg');
+min-height: 100%;
+background-position: center;
+background-size: cover;
+}
+
+/* #top-section {
+  background-color: #4169e1;
+} */
 
 .top-container {
   padding-bottom: 8%;
@@ -52,7 +65,7 @@ body #top-section {
 
 #frontheading {
   margin: 40px auto 40px;
-  color: #f5fffa;
+  color: #fff;
   padding-top: 50px;
 }
 

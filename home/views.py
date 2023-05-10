@@ -59,7 +59,8 @@ def rides(request):
         if leave != None and arrive != None and date != None and number != None:
             rides = Post.objects.filter(lookup)
             return render(request, "rides.html", {
-                'rides': rides
+                'rides': rides,
+                'number':number
             })
     return render(request, "rides.html")
 
@@ -67,7 +68,8 @@ def rides(request):
 def decrease_counter(request, pk):
     if request.method == "POST":
         ride = Post.objects.get(id=pk)
-        ride.vacant_seats = F('vacant_seats') - 1
+        number=request.GET.get('number')
+        ride.vacant_seats = F('vacant_seats') - number
         ride.save()
         return render(request, "success.html")
 
