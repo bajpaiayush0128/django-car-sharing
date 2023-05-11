@@ -10,6 +10,7 @@ urlpatterns = [
     path('logIn/', views.logIn, name="logIn"),
     path('logOut/', views.logOut, name='logOut'),
     path('PubRide/', views.PubRide, name='PubRide'),
+    path('pickRide/', views.pickRide, name='pickRide'),
     path('rides/', views.rides, name='rides'),
     path('success/', views.success, name='success'),
     path('decrease_counter/<int:pk>/',

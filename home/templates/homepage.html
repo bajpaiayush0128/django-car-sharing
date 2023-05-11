@@ -1,247 +1,191 @@
 {% extends 'base.html' %}
 {% load static %}
-<! DOCTYPE html>
-    <html lang="en">
 
-    <head>
-        {% block head %}
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Car Sharing</title>
-        <meta name="description" content="">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block head %}
+<title>Car Sharing</title>
 
-        <!-- CSS script -->
-        <link rel="stylesheet" href="{% static 'style.css' %}">
-        <!-- Favicon -->
-        <link rel="icon" href="{% static " favicon.ico" %}">
-        <!-- Font Awesome -->
-        <script src="https://kit.fontawesome.com/a45887505b.js" crossorigin="anonymous"></script>
+{% endblock %}
 
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,300&family=Montserrat:wght@200&family=Sacramento&family=Ubuntu:ital@1&display=swap"
-            rel="stylesheet">
-
-        <!-- Bootstrap cdn -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
-
-        <!-- Importing datepicker cdn -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
-        </script>
-        {% endblock %}
-    </head>
-
-    <body>
-        {% block content %}
-        <section id="top-section">
-            <div class="top-container">
-                <div class="front-section">
-                    <div class="row">
-                        <div class="col-lg-6 mx-0" id="frontheading">
-                            <h1 class="mt-5">Going Anywhere Is Just A Click Away.</h1>
-                            <h3>Save Money,Save Nature.</h3>
-                            <button class="btn btn-outline-info btn-lg mt-2" type="submit">Book Ride</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-
-        <section id="choseRide">
-            <div>
-                <h3><strong>Pick Your Ride</strong></h3>
-                <form action="{% url 'home:rides' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="input-group container">
-                        <div class="row">
-                            <div class="input-group-prepend col-sm form-group">
-                                <div class="input-group-text"><i class="fa-solid fa-circle-dot"></i></div>
-                                <input type="text" class="form-control" placeholder="Leaving From..." name="leave">
-                            </div>
-                            <div class="input-group-prepend col-sm form-group">
-                                <div class="input-group-text"><i class="fa-solid fa-circle-dot"></i></div>
-                                <input type="text" class="form-control" placeholder="Going To..." name="arrive">
-                            </div>
-                            <div class="form-group col-sm">
-                                <!-- Input field along with
-                                calendar icon and -->
-                                <div class="input-group date ">
-                                    <!-- Sets the calendar icon -->
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fa fa-calendar calenderIcon"></i>
-                                        </span>
-                                    </span>
-                                    <!-- Accepts the input from calendar -->
-                                    <input class="form-control" type="date" placeholder="Depature date..." name="date">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm">
-
-                                <div class="input-group number-spinner">
-                                    <span class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fa-solid fa-circle-minus" data-dir="dwn"></i>
-                                        </span>
-                                    </span>
-                                    <input type="text" class="form-control text-center" placeholder="No. of Passengers"
-                                        autocomplete="off" name="number">
-                                    <span class="input-group-prepend" data-dir="up">
-                                        <span class="input-group-text">
-                                            <i class="fa-solid fa-circle-plus"></i>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="searchbtn">
-                        <span class="input-group-btn">
-                            <button class="btn btn-search" type="submit"><i class="fa fa-search fa-fw"></i>
-                                Search</button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <section id="features">
-
+{% block content %}
+<section id="top-section">
+    <div class="top-container">
+        <div class="front-section">
             <div class="row">
-                <div class="feature-box col-lg-4">
-                    <i class="featureIcon fas fa-duotone fa-coins fa-4x"></i>
-                    <h3 style="font-family: 'Montserrat', sans-serif;">Your pick of rides at low prices.</h3>
-                    <p>No matter where you’re going, by bus or carpool, find the perfect ride from our wide range of
-                        destinations and routes at low prices.</p>
+                <div class="col-lg-6 mx-0" id="frontheading">
+                    <h1 class="mt-5">Going Anywhere Is Just A Click Away.</h1>
+                    <h3>Save Money,Save Nature.</h3>
+                    <button class="btn btn-outline-info btn-lg mt-2" type="submit">Book Ride</button>
                 </div>
-
-                <div class="feature-box col-lg-4">
-                    <i class="featureIcon fas fa-heart fa-4x"></i>
-                    <h3 style="font-family: 'Montserrat', sans-serif;">Trust who you travel with.</h3>
-                    <p>We take the time to get to know each of our members and bus partners. We check reviews, profiles
-                        and
-                        IDs,
-                        so you know who you’re travelling with and can book your ride at ease on our secure platform..
-                    </p>
-                </div>
-
-
-                <div class="feature-box col-lg-4">
-                    <i class="featureIcon fa-solid fa-forward-fast fa-4x"></i>
-                    <h3 style="font-family: 'Montserrat', sans-serif;">Scroll, click, tap and go!.</h3>
-                    <p>Booking a ride has never been easier! Thanks to our simple app powered by great technology, you
-                        can
-                        book a ride close to you in just minutes..</p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Testimonials -->
-        <section id="testimonials">
-
-            <div id="testimonial-carousel" class="carousel slide" data-ride="false">
-                <h2>CarSharing Help Center</h2>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <h5>How do I book a carpool ride?</h5>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus corporis inventore
-                            voluptate
-                            reiciendis alias officiis, labore aspernatur necessitatibus dolore? Sit dicta, tempora a
-                            nesciunt nam harum sunt pariatur ullam debitis?</p>
-                    </div>
-
-                    <div class="carousel-item">
-                        <h5 class="testimonial-text">How do I publish a carpool ride?</h5>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit facere earum, autem beatae
-                            maxime
-                            itaque, tempore unde repudiandae magnam, cupiditate deserunt! Cupiditate assumenda ex minus
-                            quod
-                            id sed at nesciunt.</p>
-                    </div>
-
-                    <div class="carousel-item">
-                        <h5 class="testimonial-text">How do I cancel my carpool ride?</h5>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla aliquid provident reiciendis
-                            illum
-                            repellendus? Officia, dolorem. Quia necessitatibus eius reiciendis? Et, voluptatibus itaque
-                            minus sit optio laudantium iste molestiae voluptatem.</p>
-                    </div>
-
-                    <div class="carousel-item">
-                        <h5 class="testimonial-text">What are the benefits of travelling by carpool?</h5>
-                        <p>There are multiple advantages to carpooling, over other means of transport. Travelling by
-                            carpool
-                            is usually more affordable, especially for longer distances. Carpooling is also more
-                            eco-friendly, as sharing a car means there will be fewer cars on the road, and therefore
-                            fewer
-                            emissions. Taking a carpool ride is also a safe way to travel in the current times. Because
-                            there are only a few people in a car, you have fewer points of contact and there’s less risk
-                            than other travel options. </p>
-                    </div>
-
-                    <div class="carousel-item">
-                        <h5 class="testimonial-text">How much does a carpool ride cost? </h5>
-                        <p>The costs of a carpool ride can vary greatly, and depend on factors like distance, time of
-                            departure, the demand of that ride and more. It is also up to the driver to decide how much
-                            to
-                            charge per seat, so it’s hard to put an exact price tag on a ride.</p>
-                    </div>
-
-                    <div class="carousel-item">
-                        <h5 class="testimonial-text">How do I start carpooling?</h5>
-                        <p>Carpooling with CarSharing is super easy, and free! Simply sign up for an account and tell us
-                            some
-                            basic details about yourself. Once you have a CarSharing account, you can start booking or
-                            publishing rides directly on our app or website. </p>
-                    </div>
-
-                </div>
-                <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon carouselIcon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon carouselIcon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
             </div>
 
+        </div>
+    </div>
+</section>
+
+
+<section id="choseRide">
+    <div>
+        <h3><strong>Pick Your Ride</strong></h3>
+        <form action="{% url 'home:rides' %}" method="POST">
+            {% csrf_token %}
+            <div class="input-group container">
+                <div class="row">
+                    <div class="input-group-prepend col-sm form-group">
+                        <div class="input-group-text"><i class="fa-solid fa-circle-dot"></i></div>
+                        <input type="text" class="form-control" placeholder="Leaving From..." name="leave">
+                    </div>
+                    <div class="input-group-prepend col-sm form-group">
+                        <div class="input-group-text"><i class="fa-solid fa-circle-dot"></i></div>
+                        <input type="text" class="form-control" placeholder="Going To..." name="arrive">
+                    </div>
+                    <div class="form-group col-sm">
+                        <!-- Input field along with
+                                calendar icon and -->
+                        <div class="input-group date ">
+                            <!-- Sets the calendar icon -->
+                            <span class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-calendar calenderIcon"></i>
+                                </span>
+                            </span>
+                            <!-- Accepts the input from calendar -->
+                            <input class="form-control" type="date" placeholder="Depature date..." name="date">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm">
+
+                        <div class="input-group number-spinner">
+                            <span class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-circle-minus" data-dir="dwn"></i>
+                                </span>
+                            </span>
+                            <input type="text" class="form-control text-center" placeholder="No. of Passengers"
+                                autocomplete="off" name="number">
+                            <span class="input-group-prepend" data-dir="up">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="searchbtn">
+                <span class="input-group-btn">
+                    <button class="btn btn-search" type="submit"><i class="fa fa-search fa-fw"></i>
+                        Search</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section id="features">
+
+    <div class="row">
+        <div class="feature-box col-lg-4">
+            <i class="featureIcon fas fa-duotone fa-coins fa-4x"></i>
+            <h3 style="font-family: 'Montserrat', sans-serif;">Your pick of rides at low prices.</h3>
+            <p>No matter where you’re going, by bus or carpool, find the perfect ride from our wide range of
+                destinations and routes at low prices.</p>
+        </div>
+
+        <div class="feature-box col-lg-4">
+            <i class="featureIcon fas fa-heart fa-4x"></i>
+            <h3 style="font-family: 'Montserrat', sans-serif;">Trust who you travel with.</h3>
+            <p>We take the time to get to know each of our members and bus partners. We check reviews, profiles
+                and
+                IDs,
+                so you know who you’re travelling with and can book your ride at ease on our secure platform..
+            </p>
+        </div>
+
+
+        <div class="feature-box col-lg-4">
+            <i class="featureIcon fa-solid fa-forward-fast fa-4x"></i>
+            <h3 style="font-family: 'Montserrat', sans-serif;">Scroll, click, tap and go!.</h3>
+            <p>Booking a ride has never been easier! Thanks to our simple app powered by great technology, you
+                can
+                book a ride close to you in just minutes..</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section id="testimonials">
+
+    <div id="testimonial-carousel" class="carousel slide" data-ride="false">
+        <h2>CarSharing Help Center</h2>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <h5>How do I book a carpool ride?</h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus corporis inventore
+                    voluptate
+                    reiciendis alias officiis, labore aspernatur necessitatibus dolore? Sit dicta, tempora a
+                    nesciunt nam harum sunt pariatur ullam debitis?</p>
+            </div>
+
+            <div class="carousel-item">
+                <h5 class="testimonial-text">How do I publish a carpool ride?</h5>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit facere earum, autem beatae
+                    maxime
+                    itaque, tempore unde repudiandae magnam, cupiditate deserunt! Cupiditate assumenda ex minus
+                    quod
+                    id sed at nesciunt.</p>
+            </div>
+
+            <div class="carousel-item">
+                <h5 class="testimonial-text">How do I cancel my carpool ride?</h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla aliquid provident reiciendis
+                    illum
+                    repellendus? Officia, dolorem. Quia necessitatibus eius reiciendis? Et, voluptatibus itaque
+                    minus sit optio laudantium iste molestiae voluptatem.</p>
+            </div>
+
+            <div class="carousel-item">
+                <h5 class="testimonial-text">What are the benefits of travelling by carpool?</h5>
+                <p>There are multiple advantages to carpooling, over other means of transport. Travelling by
+                    carpool
+                    is usually more affordable, especially for longer distances. Carpooling is also more
+                    eco-friendly, as sharing a car means there will be fewer cars on the road, and therefore
+                    fewer
+                    emissions. Taking a carpool ride is also a safe way to travel in the current times. Because
+                    there are only a few people in a car, you have fewer points of contact and there’s less risk
+                    than other travel options. </p>
+            </div>
+
+            <div class="carousel-item">
+                <h5 class="testimonial-text">How much does a carpool ride cost? </h5>
+                <p>The costs of a carpool ride can vary greatly, and depend on factors like distance, time of
+                    departure, the demand of that ride and more. It is also up to the driver to decide how much
+                    to
+                    charge per seat, so it’s hard to put an exact price tag on a ride.</p>
+            </div>
+
+            <div class="carousel-item">
+                <h5 class="testimonial-text">How do I start carpooling?</h5>
+                <p>Carpooling with CarSharing is super easy, and free! Simply sign up for an account and tell us
+                    some
+                    basic details about yourself. Once you have a CarSharing account, you can start booking or
+                    publishing rides directly on our app or website. </p>
+            </div>
+
+        </div>
+        <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon carouselIcon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon carouselIcon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
 
 
 
-        </section>
 
-        <!-- Footer -->
-
-        <footer id="footer">
-            <a href="https://www.facebook.com"><i class="social-icon fab fa-facebook-f"></i></a>
-            <a href="https://www.twitter.com/"><i class="social-icon fab fa-twitter"></i></a>
-            <a href="https://www.instagram.com/"><i class="social-icon fab fa-instagram"></i></a>
-            <a href="https://mail.google.com"><i class="social-icon fas fa-envelope"></i></a>
-            <p>Copyright 2022 CarSharing</p>
-
-
-        </footer>
-        <script src="{% static 'home.js' %}"></script>
-        {% endblock %}
-    </body>
-
-    </html>
+</section>
+{% endblock content %}

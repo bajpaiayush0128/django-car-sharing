@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  {% load static %}
 <head>
-  {% block head %}
   <meta charset="UTF-8" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,7 +29,27 @@
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
 
-  {% endblock %}
+    <!-- CSS script -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{% static " favicon.ico" %}">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a45887505b.js" crossorigin="anonymous"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,300&family=Montserrat:wght@200&family=Sacramento&family=Ubuntu:ital@1&display=swap"
+        rel="stylesheet">
+
+    <!-- Importing datepicker cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
+    </script>
+    
+  {% block head %}
+  {% endblock head %}
   <title>Default Title</title>
 </head>
 
@@ -45,6 +65,10 @@
       <ul class="nav navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="{% url 'home:PubRide' %}"><i class="fa-solid fa-circle-plus nav-icon"></i>Publish A
+            Ride</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home:pickRide' %}"><i class="fa-solid fa-circle-plus nav-icon"></i>Pick Your
             Ride</a>
         </li>
         {% if user.is_authenticated %}
@@ -76,7 +100,22 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  {% endfor %} {% block content %} Connection Problems... {% endblock %}
+  {% endfor %} 
+  {% block content %} {% endblock content %}
+
+  <!-- Footer -->
+
+  <footer id="footer" class="bg-dark text-white text-center">
+    <a href="https://www.facebook.com"><i class="social-icon fab fa-facebook-f"></i></a>
+    <a href="https://www.twitter.com/"><i class="social-icon fab fa-twitter"></i></a>
+    <a href="https://www.instagram.com/"><i class="social-icon fab fa-instagram"></i></a>
+    <a href="https://mail.google.com"><i class="social-icon fas fa-envelope"></i></a>
+    <p>Copyright 2022 CarSharing</p>
+
+
+</footer>
+
+  <script src="{% static 'home.js' %}"></script>
 </body>
 
 </html>

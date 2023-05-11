@@ -186,13 +186,12 @@ background-size: cover;
 /* Footer Section */
 
 #footer {
-  padding: 50px 50px;
+  padding: 10px 10px;
   text-align: center;
-  background-color: #afeeee;
 }
 
 .social-icon {
-  margin: 20px 10px;
+  margin: 10px 10px;
   color: #ef8172;
 }
 

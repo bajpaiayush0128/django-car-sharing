@@ -19,6 +19,9 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 def home(request):
     return render(request, "homepage.html")
 
+def pickRide(request):
+    return render(request, "pickRide.html")
+
 
 def PubRide(request):
     if request.method == "POST":
@@ -28,20 +31,16 @@ def PubRide(request):
             vacant_seats = request.POST['vacant_seats']
             date_of_trip = request.POST['date_of_trip']
             time_of_trip = request.POST['time_of_trip']
+            price = request.POST['price']
+            car_name = request.POST.get('car_name')
 
-            post1 = Post.objects.create(
-                source=source, destination=destination, vacant_seats=vacant_seats, date_of_trip=date_of_trip, time_of_trip=time_of_trip)
-            post1.user = request.user
-            post1.source = source
-            post1.destination = destination
-            post1.vacant_seats = vacant_seats
-            post1.date_of_trip = date_of_trip
-            post1.time_of_trip = time_of_trip
+            post1 = Post(
+                source=source, destination=destination, vacant_seats=vacant_seats, date_of_trip=date_of_trip, time_of_trip=time_of_trip, price=price, car_name=car_name)
 
             post1.save()
 
             messages.success(request, "Your ride has been successfully posted")
-            return render(request, "homepage.html", {'username': post1.user.username})
+            return render(request, "PubRide.html", {'username': request.user.username})
         else:
             messages.error(request, "Please login to post a ride.")
             return render(request, "logIn.html")
@@ -53,6 +52,7 @@ def rides(request):
         leave = request.POST.get('leave')
         arrive = request.POST.get('arrive')
         date = request.POST.get('date')
+        # number_of_passengers so that we can pass it through url to use it on ride.html
         number = request.POST.get('number')
         lookup = (Q(source__icontains=leave) &
                   Q(destination__icontains=arrive))
@@ -68,6 +68,7 @@ def rides(request):
 def decrease_counter(request, pk):
     if request.method == "POST":
         ride = Post.objects.get(id=pk)
+        # getting number_of_passenger through url get method
         number=request.GET.get('number')
         ride.vacant_seats = F('vacant_seats') - number
         ride.save()

@@ -16,6 +16,7 @@ class Post(models.Model):
     source = models.CharField(max_length=120)
     destination = models.CharField(max_length=120)
     vacant_seats = models.IntegerField()
+    price= models.FloatField(default=0)
     # participants = models.ManyToManyField(User, blank=True)
     date = models.DateTimeField(auto_now=True)
 
