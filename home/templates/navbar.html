@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index: 1">
+    <a class="navbar-brand" href="{% url 'home:home' %}">CarSharing</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarcontent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarcontent">
+      <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home:home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home:pickRide' %}">Pick Your Ride</a>
+        </li>
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav mr-3">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Hello {{request.user.first_name}}!
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'home:PubRide' %}">Publish A Ride</a>
+              <a class="dropdown-item" href="#">Your Rides</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'home:logOut' %}">Sign Out</a>
+            </div>
+          </li>
+        </ul>
+        {%else%}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home:logIn' %}"><i class="fa-solid fa-right-to-bracket nav-icon"></i>Log
+            In</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home:register' %}"><i class="fa-solid fa-user nav-icon"></i>Register</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
