@@ -131,14 +131,17 @@ background-size: cover;
 
 /* Feature Section */
 #features {
-  padding: 7% 15%;
+  padding: 5% 7%;
   position: relative;
   z-index: 1;
-  background-color: #48d1cc;
+  background-color: #f7f7f7;
 }
 
 .feature-box {
   text-align: center;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .featureIcon {
