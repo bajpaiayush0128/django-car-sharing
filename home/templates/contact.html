@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block contactactive %}active{% endblock contactactive %}
+
+{% block content %}
+<section id="contact-us">
+    <div class="container d-block">
+        <h2>Contact Us</h2>
+        <form action="{% url 'home:contact' %}" method="POST" class="text-left">
+            {% csrf_token %}
+            <div class="form-group pt-3">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
+                    placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" name="phone" class="form-control" id="phone" placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label for="desc">How may we help you?</label>
+                <textarea class="form-control" name="desc" id="desc" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-info">Submit</button>
+        </form>
+    </div>
+</section>
+{% endblock content %}

@@ -183,6 +183,10 @@ background-size: cover;
   margin: auto;
 }
 
+#contact-us{
+  padding: 5% 7%;
+}
+
 /* Footer Section */
 
 #footer {

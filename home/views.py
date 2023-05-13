@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from django.db.models import F
-from .models import Post
+from .models import *
 from car_sharing import settings
 from django.core.mail import send_mail, EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
@@ -21,6 +21,18 @@ def home(request):
 
 def pickRide(request):
     return render(request, "pickRide.html")
+
+def contact(request):
+    if request.method=='POST':
+        name= request.POST.get('name')
+        email= request.POST.get('email')
+        phone= request.POST.get('phone')
+        desc= request.POST.get('desc')
+
+        instance = Contact(name=name, email=email, phone=phone, desc=desc)
+        instance.save()
+        messages.success(request, "Your query has been saved")
+    return render(request, "contact.html")
 
 
 def PubRide(request):

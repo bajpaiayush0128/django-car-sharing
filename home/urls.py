@@ -16,4 +16,5 @@ urlpatterns = [
     path('decrease_counter/<int:pk>/',
          views.decrease_counter, name='decrease_counter'),
     path('activate/<uidb64>/<token>/', views.activate, name="activate"),
+    path('contact/', views.contact, name='contact'),
 ]
