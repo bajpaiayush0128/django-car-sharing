@@ -57,7 +57,7 @@ def rides(request):
         lookup = (Q(source__icontains=leave) &
                   Q(destination__icontains=arrive))
         if leave != None and arrive != None and date != None and number != None:
-            rides = Post.objects.filter(lookup)
+            rides = Post.objects.filter(Q(lookup))
             return render(request, "rides.html", {
                 'rides': rides,
                 'number':number

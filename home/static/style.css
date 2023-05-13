@@ -9,6 +9,10 @@ body h3 {
   font-family: "Montserrat", sans-serif;
 }
 
+#navbarcontent .nav .nav-item.active{
+  color: #fff;
+}
+
 /* Top Section */
 
 .top-container {
@@ -53,10 +57,10 @@ background-size: cover;
 
 #choseRide {
   position: relative;
-  padding: 5% 15%;
+  padding: 5% 7%;
   text-align: center;
   margin: 2% auto;
-  background-color: #e0ffff;
+  background-color: #fff;
   margin: 0;
 }
 

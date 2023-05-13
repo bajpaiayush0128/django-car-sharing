@@ -3,8 +3,11 @@
 
 {% block head %}
 <title>Car Sharing</title>
-
 {% endblock %}
+
+{% block homeactive %}
+active
+{% endblock homeactive %}
 
 {% block content %}
 <section id="top-section">
@@ -69,60 +72,54 @@
 
 
 <section id="choseRide">
-    <div>
-        <h3><strong>Pick Your Ride</strong></h3>
-        <form action="{% url 'home:rides' %}" method="POST">
+    <div class="container d-block px-0 pb-5">
+        <h2 class="pb-3">Pick your Ride</h2>
+        <form name="ChooseRideForm" action="{% url 'home:rides' %}" method="post" class=" text-left">
             {% csrf_token %}
-            <div class="input-group container">
-                <div class="row">
-                    <div class="input-group-prepend col-sm form-group">
-                        <div class="input-group-text"><i class="fa-solid fa-circle-dot"></i></div>
-                        <input type="text" class="form-control" placeholder="Leaving From..." name="leave">
-                    </div>
-                    <div class="input-group-prepend col-sm form-group">
-                        <div class="input-group-text"><i class="fa-solid fa-circle-dot"></i></div>
-                        <input type="text" class="form-control" placeholder="Going To..." name="arrive">
-                    </div>
-                    <div class="form-group col-sm">
-                        <!-- Input field along with
-                                calendar icon and -->
-                        <div class="input-group date ">
-                            <!-- Sets the calendar icon -->
-                            <span class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fa fa-calendar calenderIcon"></i>
-                                </span>
-                            </span>
-                            <!-- Accepts the input from calendar -->
-                            <input class="form-control" type="date" placeholder="Depature date..." name="date">
-                        </div>
-                    </div>
-                    <div class="form-group col-sm">
+            <div class="form-group">
+                <label for="leave">From</label>
+                <input type="text" class="form-control" id="leave" name="leave" placeholder="Leaving From..."
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="arrive">To</label>
+                <input type="text" class="form-control" id="arrive" name="arrive" placeholder="Going To..."
+                    required>
+            </div>
+            <div class="form-group">
+                <!-- Input field along with
+                calendar icon and -->
+                <!-- <div class="input-group date "> -->
+                    <!-- Sets the calendar icon -->
+                    <!-- <span class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar calenderIcon"></i>
+                        </span>
+                    </span> -->
+                    <!-- Accepts the input from calendar -->
+                    <label for="date">Date</label>
+                    <input class="form-control" type="date" placeholder="Depature date..." name="date">
+                <!-- </div> -->
+            </div>
+            <div class="form-group">
 
-                        <div class="input-group number-spinner">
-                            <span class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fa-solid fa-circle-minus" data-dir="dwn"></i>
-                                </span>
-                            </span>
-                            <input type="text" class="form-control text-center" placeholder="No. of Passengers"
-                                autocomplete="off" name="number">
-                            <span class="input-group-prepend" data-dir="up">
-                                <span class="input-group-text">
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                </span>
-                            </span>
-                        </div>
-                    </div>
+                <label for="number">No. of Passengers</label>
+                <div class="input-group number-spinner">
+                    <span class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-circle-minus" data-dir="dwn"></i>
+                        </span>
+                    </span>
+                    <input type="number" class="form-control" placeholder="No. of Passengers"
+                        autocomplete="off" name="number" oninput="validity.valid||(value='');" min="0" step="1" maxlength="10">
+                    <span class="input-group-prepend" data-dir="up">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-circle-plus"></i>
+                        </span>
+                    </span>
                 </div>
             </div>
-
-            <div class="searchbtn">
-                <span class="input-group-btn">
-                    <button class="btn btn-search" type="submit"><i class="fa fa-search fa-fw"></i>
-                        Search</button>
-                </span>
-            </div>
+            <button type="submit" class="btn btn-outline-info">Search</button>
         </form>
     </div>
 </section>
