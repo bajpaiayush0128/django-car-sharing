@@ -57,7 +57,7 @@ background-size: cover;
 
 #choseRide {
   position: relative;
-  padding: 5% 7%;
+  padding: 3% 7%;
   text-align: center;
   margin: 2% auto;
   background-color: #fff;
@@ -97,7 +97,7 @@ background-size: cover;
 
 /* Feature Section */
 #features {
-  padding: 5% 7%;
+  padding: 3% 7%;
   position: relative;
   z-index: 1;
   background-color: #f7f7f7;
@@ -126,7 +126,7 @@ background-size: cover;
   background-color: #f7f7f7;
   border-radius: 10px;
   margin-bottom: 5px;
-  padding: 5% 7%;
+  padding: 3% 7%;
 }
 
 #testimonials h2 {
@@ -183,8 +183,12 @@ background-size: cover;
   margin: auto;
 }
 
-#contact-us{
-  padding: 5% 7%;
+#contact-us, #pickRide, #yourRide{
+  padding: 3% 7%;
+}
+
+#yourRide td i.edit{
+  cursor: pointer;
 }
 
 /* Footer Section */

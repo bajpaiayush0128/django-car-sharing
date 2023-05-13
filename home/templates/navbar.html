@@ -27,7 +27,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{% url 'home:PubRide' %}">Publish A Ride</a>
-            <a class="dropdown-item" href="#">Your Rides</a>
+            <a class="dropdown-item" href="{% url 'home:yourRide' request.user.id %}">Your Rides</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'home:logOut' %}">Sign Out</a>
           </div>

@@ -15,33 +15,6 @@ body #top-section {
   padding: 3%;
 }
 
-.navbar-brand {
-  color: #fff;
-  font-weight: bold;
-  margin-left: 25px;
-}
-
-.navbar {
-  background-color: #191970;
-  z-index: 1;
-}
-
-#navbarcontent .nav {
-  margin: 0 0 0 0;
-}
-
-.nav-icon {
-  padding-right: 5px;
-}
-
-.navbar .dropdown-menu {
-  background-color: aliceblue;
-}
-
-.dropdown-menu a:hover {
-  background-color: #778899;
-}
-
 .row .form-control {
   border-radius: 20px;
   font-size: 1rem;

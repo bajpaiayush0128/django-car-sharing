@@ -9,10 +9,10 @@
 {% block rideactive %}active{% endblock rideactive %}
 
 {% block content %}
-<section id="chooseRide">
-    <div class="container d-block my-2 px-0 pb-5 text-left">
+<section id="pickRide">
+    <div class="container d-block my-2 px-0 pb-5">
         <h2 class="py-3">Pick your Ride</h2>
-        <form name="ChooseRideForm" action="{% url 'home:rides' %}" method="post">
+        <form name="ChooseRideForm" action="{% url 'home:rides' %}" method="post" class="text-left">
             {% csrf_token %}
             <div class="form-group">
                 <label for="leave">From</label>

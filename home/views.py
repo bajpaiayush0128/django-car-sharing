@@ -22,6 +22,62 @@ def home(request):
 def pickRide(request):
     return render(request, "pickRide.html")
 
+def yourRide(request, user):
+    rides=Post.objects.filter(user=user)
+    print(rides)
+    context={"rides":rides}
+    return render(request, "yourRides.html", context)
+
+def updateRide(request, id):
+    context={}
+    if request.method=='POST':
+        source = request.POST['source']
+        destination = request.POST['destination']
+        vacant_seats = request.POST['vacant_seats']
+        date_of_trip = request.POST['date_of_trip']
+        time_of_trip = request.POST['time_of_trip']
+        price = request.POST['price']
+        car_name = request.POST.get('car_name')
+        ride=Post.objects.get(id=id)
+        ride.source=source
+        ride.destination=destination
+        ride.date_of_trip=date_of_trip
+        ride.time_of_trip=time_of_trip
+        ride.vacant_seats=vacant_seats
+        ride.car_name=car_name
+        ride.price=price
+
+        ride.save()
+        print(request.user.id)
+
+        messages.success(request, "Your Ride has been edited")
+
+        # Here we are concatinating logged in user_id with url
+        user_id=request.user.id
+        url = '/yourRide/{}'.format(user_id)  # yourRide/{{logged_in_user_id}}
+        return redirect(url)
+    else:
+        ride=Post.objects.get(id=id)
+        context.update({"ride":ride})
+    return render(request, "editRide.html", context)
+
+def deleteRide(request, id):
+    ride=Post.objects.get(id=id)
+    
+    if ride:
+        ride.delete()
+
+        messages.success(request, "Your Ride has been deleted")
+
+        # Here we are concatinating logged in user_id with url
+        user_id=request.user.id
+        url = '/yourRide/{}'.format(user_id)  # yourRide/{{logged_in_user_id}}
+        return redirect(url)
+    else:
+        messages.error(request, "Some Problem Occured! Your Ride cannot be deleted. Please try again!")
+        return render(request, 'homepage.html')
+
+
 def contact(request):
     if request.method=='POST':
         name= request.POST.get('name')
@@ -38,6 +94,7 @@ def contact(request):
 def PubRide(request):
     if request.method == "POST":
         if request.user.is_authenticated:
+            user=request.user
             source = request.POST['source']
             destination = request.POST['destination']
             vacant_seats = request.POST['vacant_seats']
@@ -47,7 +104,7 @@ def PubRide(request):
             car_name = request.POST.get('car_name')
 
             post1 = Post(
-                source=source, destination=destination, vacant_seats=vacant_seats, date_of_trip=date_of_trip, time_of_trip=time_of_trip, price=price, car_name=car_name)
+                user=user,source=source, destination=destination, vacant_seats=vacant_seats, date_of_trip=date_of_trip, time_of_trip=time_of_trip, price=price, car_name=car_name)
 
             post1.save()
 

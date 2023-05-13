@@ -1,0 +1,86 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+  {% block head %}
+  <title>Edit your Ride</title>
+  <link rel="stylesheet" href="{% static 'PubRide.css' %}" media="screen" />
+  {% endblock %}
+
+  {% block content %}
+  <a href="{% url 'home:yourRide' request.user.id %}" class="d-flex ml-4 my-4"> << Back to Your Ride page</a>
+  <section class="top-section" onload="resetting()">
+    <div class="container-fluid h-custom">
+      <!-- <h1 class="text-center my-2">Want to Earn?</h1>
+      <h3 class="text-center mb-3">Publish Your Ride...</h3>
+      <h5 class="text-center mb-5">
+        Save On Travel Cost By Sharing Your Ride With Passengers!
+      </h5> -->
+      <h2 class="pb-3">Edit Your Ride</h2>
+      
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-8 col-lg-6 col-xl-4 text-left">
+          <form name="form" method="POST">
+            {% csrf_token %}
+            <div class="row">
+              <div class="form-outline mb-4 col-sm-12">
+                <label class="form-label" for="source">From</label>
+                <input type="text" name="source" id="source" class="form-control form-control-lg"
+                  placeholder="From..." required="required" value="{{ride.source}}" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-outline mb-4 col-sm-12">
+                <label class="form-label" for="destination">To</label>
+                <input type="text" name="destination" id="destination" class="form-control form-control-lg"
+                  placeholder="To..." required="required" value="{{ride.destination}}" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-outline mb-4 col-sm-6">
+                <label class="form-label" for="vacant_seats">Seats</label>
+                <input type="number" name="vacant_seats" min="0" step="1" id="vacant_seats"
+                  class="form-control form-control-lg" placeholder="No. Of Passengers" maxlength="10"
+                  oninput="validity.valid||(value='');" required="required" value="{{ride.vacant_seats}}" />
+              </div>
+              <div class="form-outline mb-4 col-sm-6">
+                <label class="form-label" for="car_name">Car Name</label>
+                <input type="text" name="car_name" id="car_name" class="form-control form-control-lg"
+                  placeholder="Car/Model Name" required="required" value="{{ride.car_name}}"/>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-outline mb-4 col-sm-6">
+                <label class="form-label" for="date_of_trip">Departure Date</label>
+                <input type="date" name="date_of_trip" id="date_of_trip" class="form-control form-control-lg"
+                  placeholder="Departure Date" required="required" value="{{ride.date_of_trip|date:'Y-m-d'}}"/>
+              </div>
+              <div class="form-outline mb-4 col-sm-6">
+                <label class="form-label" for="time_of_trip">Departure Time</label>
+                <input type="time" name="time_of_trip" id="time_of_trip" class="form-control form-control-lg"
+                  placeholder="Departure Time" required="required" value="{{ride.time_of_trip|date:'H:i'}}"/>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-outline mb-4 col-sm-12">
+                <label class="form-label" for="price">Price(in Rupees)</label>
+                <input type="number" name="price" id="price" class="form-control form-control-lg"
+                oninput="validity.valid||(value='');" placeholder="Enter price for your trip" required="required" value="{{ride.price}}"/>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-outline-info btn-block btn-lg">
+                Update
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="{% static 'PubRide.js' %}"></script>
+  {% endblock %}
