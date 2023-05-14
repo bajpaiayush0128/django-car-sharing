@@ -19,7 +19,11 @@ import math
 
 
 def home(request):
-    return render(request, "homepage.html")
+    context={}
+    if request.user.is_authenticated:
+        profile=Profile.objects.get(user=request.user)
+        context={'profile':profile}
+    return render(request, "homepage.html", context)
 
 def pickRide(request):
     return render(request, "pickRide.html")
@@ -278,6 +282,27 @@ def register(request):
 
     return render(request, "register.html")
 
+def profile(request):
+    if request.method=='POST':
+        user=request.POST.get('user')
+        first_name=request.POST.get('first_name')
+        last_name=request.POST.get('last_name')
+        contact_no=request.POST.get('phone')
+        image=request.POST.get('profileimg')
+
+        # if profile is alredy saved then update the profile otherwise save it
+        if Profile.objects.filter(user=user).exists():
+            profile=Profile.objects.get(user=user)
+            profile.contact_no=contact_no
+            profile.image=image
+            profile.save()
+            messages.success(request, "Your Profile has been successfully updated")
+        else:
+            profile= Profile(user=user, first_name=first_name, last_name=last_name, contact_no=contact_no, image=image)
+            profile.save()
+            messages.success(request, "Your Profile has been successfully saved")
+        return redirect('/')
+    return render(request, "profile.html")
 
 def activate(request, uidb64, token):
     try:

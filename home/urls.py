@@ -15,6 +15,7 @@ urlpatterns = [
     path('updateRide/<int:id>/', views.updateRide, name='updateRide'),
     path('deleteRide/<int:id>/', views.deleteRide, name='deleteRide'),
     path('rides/', views.rides, name='rides'),
+    path('profile/', views.profile, name='profile'),
     path('success/', views.success, name='success'),
     path('decrease_counter/<int:pk>/',
          views.decrease_counter, name='decrease_counter'),
