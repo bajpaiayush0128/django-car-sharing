@@ -14,6 +14,8 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
 from .tokens import generate_token
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from datetime import datetime
+import math
 
 
 def home(request):
@@ -50,7 +52,7 @@ def updateRide(request, id):
         ride.save()
         print(request.user.id)
 
-        messages.success(request, "Your Ride has been edited")
+        messages.success(request, "Your Ride has been updated")
 
         # Here we are concatinating logged in user_id with url
         user_id=request.user.id
@@ -67,7 +69,7 @@ def deleteRide(request, id):
     if ride:
         ride.delete()
 
-        messages.success(request, "Your Ride has been deleted")
+        messages.error(request, "Your Ride has been deleted")
 
         # Here we are concatinating logged in user_id with url
         user_id=request.user.id
@@ -115,6 +117,42 @@ def PubRide(request):
             return render(request, "logIn.html")
     return render(request, "PubRide.html")
 
+def pagination(page, rides):
+    # PAGINATION LOGIC STARTS
+    # designing pagination logic
+    no_of_posts=2
+    # page= request.GET.get('page') # fetching value from url
+
+    # By default, request.GET.get('page') returns string and if there is no page then return None
+    # so if there is no page, make page = 1 otherwise convert ot integer
+    if page is None:
+        page = 1
+    else:
+        page = int(page)
+
+    
+    # counting all blogs in the databases to perform pagination logic
+    length = len(rides)
+    # here we are using python slicing function
+    # below line just used to show how many blogs can be rendered on blog page and from where to where (ie, if page = 1, then blogs from index 0 to 2 will be displayed)
+    rides = rides[(page-1)*no_of_posts: page*no_of_posts]
+
+    # if page is greater than 1 then prev will be decremented by page-1 else make it None
+    if page > 1:
+        prev=page-1
+    else:
+        prev=None
+
+    # Similarly, if page is less than ceiling value of required number of pages then nxt will be incremented by page+1 else make it None
+    if page<math.ceil(length/no_of_posts):
+        nxt=page+1
+    else:
+        nxt=None
+
+    return rides, prev, nxt
+    
+    # PAGINATION LOGIC ENDS
+
 
 def rides(request):
     if request.method == "POST":
@@ -127,11 +165,33 @@ def rides(request):
                   Q(destination__icontains=arrive))
         if leave != None and arrive != None and date != None and number != None:
             rides = Post.objects.filter(Q(lookup))
-            return render(request, "rides.html", {
-                'rides': rides,
-                'number':number
-            })
-    return render(request, "rides.html")
+
+            # if vacant_seats is less than the user demand then we are not showing that particular ride and if date and time of trip is less than todays date and time
+            for ride in rides:
+                if ride.vacant_seats < int(number) or (ride.date_of_trip < datetime.now().date() and ride.time_of_trip < datetime.now().time()):
+                    rides=rides.exclude(id = ride.id)
+            
+            # these blocks are for pagination 
+            page= request.GET.get('page')
+            rides, prev, nxt = pagination(page, rides)
+
+            context={'rides': rides,'number':number, 'prev':prev, 'nxt':nxt}
+
+            return render(request, "rides.html", context)
+    else:
+        rides=Post.objects.all()
+        # if date and time of trip is less than todays date and time then we are not showing in all rides 
+        for ride in rides:
+            if ride.date_of_trip < datetime.now().date() and ride.time_of_trip < datetime.now().time():
+                rides=rides.exclude(id = ride.id)
+
+        # these blocks are for pagination 
+        page= request.GET.get('page')
+        rides, prev, nxt = pagination(page, rides)
+
+        context={'rides': rides, 'prev':prev, 'nxt':nxt}
+
+        return render(request, "allRides.html", context)
 
 
 def decrease_counter(request, pk):

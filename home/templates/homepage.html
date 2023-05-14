@@ -17,7 +17,7 @@ active
                 <div class="col-lg-6 mx-0" id="frontheading">
                     <h1 class="mt-5">Going Anywhere Is Just A Click Away.</h1>
                     <h3>Save Money,Save Nature.</h3>
-                    <button class="btn btn-outline-info btn-lg mt-2" type="submit">Book Ride</button>
+                    <a href="{% url 'home:pickRide' %}" class="btn btn-outline-info btn-lg mt-2" type="submit" aria-label="Book your Ride">Book Ride</a>
                 </div>
             </div>
 
@@ -223,7 +223,7 @@ active
           <label for="desc">How may we help you?</label>
           <textarea class="form-control" name="desc" id="desc" rows="5"></textarea>
         </div>
-        <button type="submit" class="btn btn-info">Submit</button>
+        <button type="submit" class="btn btn-outline-info">Submit</button>
       </form>
     </div>
   </section>

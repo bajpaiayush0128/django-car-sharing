@@ -33,8 +33,8 @@
                     <td>{{ride.car_name}}</td>
                     <td>{{ride.vacant_seats}}</td>
                     <td>{{ride.price}}</td>
-                    <td><i class="edit fa-regular fa-pen-to-square" onclick="location.href='/updateRide/{{ride.id}}'"></i>
-                        <i class="edit fa-regular fa-trash-can ml-3 mt-1" onclick="location.href='/deleteRide/{{ride.id}}'"></i></td>
+                    <td><i class="edit fa-regular fa-pen-to-square" onclick="location.href='/updateRide/{{ride.id}}'" title="Edit your Ride"></i>
+                        <i class="edit fa-regular fa-trash-can ml-3 mt-1" onclick="location.href='/deleteRide/{{ride.id}}'" title="Delete your Ride"></i></td>
                       {% comment %} {% url 'deleteRide' ride.id %} {% endcomment %}
                 </tr>
                 {% endfor %}

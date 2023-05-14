@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load static %}
 
 {% block head %}
@@ -9,46 +9,7 @@
 
 {% block content %}
 <div class="container">
-  <div class="row ng-scope">
-    <h2 class="my-3">Your search rides results:- </h2>
-    {% for ride in rides %}
-    <div class="col-md-9 col-md-pull-3" style="margin: auto">
-      <section class="search-result-item py-5 my-3">
-        <a class="image-link px-1" href="#"><img class="image"
-            src="https://bootdey.com/img/Content/avatar/avatar1.png" />
-        </a>
-        <div class="search-result-item-body">
-          <div class="row">
-            <div class="col-sm-9">
-              <h4 class="search-result-item-heading">
-                Name: {{request.user.get_full_name|default:request.user.username}}
-              </h4>
-              <p class="info">
-                Date of Trip: {{ride.date_of_trip}}<br />Time of Trip:
-                {{ride.time_of_trip}}
-              </p>
-              <p class="description">
-                Source: {{ride.source}}<br />Destination:
-                {{ride.destination}}<br />Vacant Seats:
-                {{ride.vacant_seats}}
-              </p>
-            </div>
-            <div class="col-sm-3 text-align-center">
-              <h5 class="value3 mt-sm">Car: {{ride.car_name}}</h5>
-              <p class="value3 mt-sm">Rs. {{ride.price}}</p>
-              <p class="fs-mini text-muted">Per Person</p>
-              <form action="{% url 'home:decrease_counter' ride.id %}?number={{number}}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-info">Book Now</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-    {% empty %}
-    <h1>No rides Available</h1>
-    {% endfor %}
-  </div>
+  <h2 class="my-3 d-flex">Your search rides results:- </h2>
+  {% include 'rideCards.html' %}
 </div>
 {% endblock %}
