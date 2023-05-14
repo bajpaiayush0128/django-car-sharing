@@ -306,6 +306,7 @@ def logIn(request):
 
         if user is not None:
             login(request, user)
+            messages.success(request, "You are now logged in")
             return render(request, "homepage.html", {'username': username})
 
         else:
@@ -317,5 +318,5 @@ def logIn(request):
 
 def logOut(request):
     logout(request)
-    messages.success(request, "Logged out successfully !")
+    messages.success(request, "You are now successfully logged out")
     return render(request, "homepage.html")
