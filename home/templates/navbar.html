@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index: 1">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark {% if profile.image != NULL %}py-0{% endif %}" style="z-index: 1">
   <a class="navbar-brand" href="{% url 'home:home' %}">CarSharing</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
     aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +31,7 @@
             Welcome {{request.user.first_name}}!
           {% endif %}
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: -90%">
             <a class="dropdown-item" href="{% url 'home:profile' %}">Edit your Profile</a>
             <a class="dropdown-item" href="{% url 'home:PubRide' %}">Publish A Ride</a>
             <a class="dropdown-item" href="{% url 'home:yourRide' request.user.id %}">Your Rides</a>
