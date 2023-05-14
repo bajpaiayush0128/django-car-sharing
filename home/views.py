@@ -244,8 +244,7 @@ def register(request):
         myuser.is_active = False
         myuser.save()
 
-        messages.success(
-            request, "Your account has been successfully created. Please confirm your email ID by clicking on the confirmation link sent.")
+        messages.success(request, "Your account has been successfully created. Please confirm your email ID by clicking on the confirmation link sent.")
 
         # Welcome Email
         subject = "Welcome to Car Sharing Service!!"
@@ -274,6 +273,7 @@ def register(request):
         email.fail_silently = True
         email.send()
 
+        messages.success(request, "you have been successfully registered on our site")
         return render(request, "logIn.html")
 
     return render(request, "register.html")
