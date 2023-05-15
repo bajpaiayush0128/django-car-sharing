@@ -288,7 +288,7 @@ def profile(request):
         first_name=request.POST.get('first_name')
         last_name=request.POST.get('last_name')
         contact_no=request.POST.get('phone')
-        image=request.POST.get('profileimg')
+        image=request.FILES.get('profileimg')
 
         # if profile is alredy saved then update the profile otherwise save it
         if Profile.objects.filter(user=user).exists():

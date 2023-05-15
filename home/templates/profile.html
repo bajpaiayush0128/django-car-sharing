@@ -5,7 +5,7 @@
 <section id="contact-us">
     <div class="container d-block">
         <h2>Your Profile</h2>
-        <form action="{% url 'home:profile' %}" method="POST" class="text-left">
+        <form action="{% url 'home:profile' %}" method="POST" class="text-left" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group pt-3">
                 <label for="user">Username</label>
