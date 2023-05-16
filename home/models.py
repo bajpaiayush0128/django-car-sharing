@@ -30,6 +30,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=240)
     last_name = models.CharField(max_length=240)
     contact_no = models.CharField(max_length=240)
+    email= models.EmailField(max_length=254, null=True, blank=True)
     image = models.ImageField(upload_to='images/')
 
     def __str__(self):

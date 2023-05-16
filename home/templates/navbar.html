@@ -32,7 +32,8 @@
           {% endif %}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown" {% if profile.image != NULL and profile.image.url %}style="left: -90%"{% endif %}>
-            <a class="dropdown-item" href="{% url 'home:profile' %}">Edit your Profile</a>
+            <a class="dropdown-item" href="{% url 'home:profile' request.user%}">Profile</a>
+            <a class="dropdown-item" href="{% url 'home:editProfile' %}">Edit your Profile</a>
             <a class="dropdown-item" href="{% url 'home:PubRide' %}">Publish A Ride</a>
             <a class="dropdown-item" href="{% url 'home:yourRide' request.user.id %}">Your Rides</a>
             <a class="dropdown-item" href="{% url 'home:booking' request.user.id %}">Your Bookings</a>

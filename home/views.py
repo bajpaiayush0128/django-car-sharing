@@ -16,6 +16,7 @@ from .tokens import generate_token
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from datetime import datetime
 import math
+from django.contrib.auth.models import User
 
 
 def home(request):
@@ -30,9 +31,23 @@ def pickRide(request):
 
 def yourRide(request, user):
     rides=Post.objects.filter(user=user)
-    print(rides)
     context={"rides":rides}
     return render(request, "yourRides.html", context)
+
+def riderInfo(request, id):
+    context={}
+    bookings=[]
+    user=[]
+    allrides=Booking.objects.all()
+    for ride in allrides:
+        print(ride.post.id)
+        if ride.post.id==id:
+            bookings.append(ride.riders_id)
+    
+    riders_profile=User.objects.filter(id__in=bookings)
+
+    context={'riders_profile':riders_profile}
+    return render(request, "rider_info.html", context)
 
 def updateRide(request, id):
     context={}
@@ -262,6 +277,10 @@ def register(request):
         myuser.is_active = False
         myuser.save()
 
+        # Also saving the details in Profile database
+        profile= Profile(user=username, first_name=first_name, last_name=last_name, email=email)
+        profile.save()
+
         messages.success(request, "Your account has been successfully created. Please confirm your email ID by clicking on the confirmation link sent.")
 
         # Welcome Email
@@ -289,19 +308,20 @@ def register(request):
             [myuser.email],
         )
         email.fail_silently = True
-        email.send()
+        # email.send()
 
         messages.success(request, "you have been successfully registered on our site")
         return render(request, "logIn.html")
 
     return render(request, "register.html")
 
-def profile(request):
+def editProfile(request):
     if request.method=='POST':
         user=request.POST.get('user')
         first_name=request.POST.get('first_name')
         last_name=request.POST.get('last_name')
         contact_no=request.POST.get('phone')
+        email=request.POST.get('email')
         image=request.FILES.get('profileimg')
 
         # if profile is alredy saved then update the profile otherwise save it
@@ -312,11 +332,18 @@ def profile(request):
             profile.save()
             messages.success(request, "Your Profile has been successfully updated")
         else:
-            profile= Profile(user=user, first_name=first_name, last_name=last_name, contact_no=contact_no, image=image)
+            profile= Profile(user=user, first_name=first_name, last_name=last_name,email=email, contact_no=contact_no, image=image)
             profile.save()
             messages.success(request, "Your Profile has been successfully saved")
         return redirect('/')
-    return render(request, "profile.html")
+    return render(request, "editProfile.html")
+
+def profile(request, username):
+    context={}
+    profile=Profile.objects.get(user=username)
+    context={'profile':profile}
+    
+    return render(request, "profile.html", context)
 
 def activate(request, uidb64, token):
     try:

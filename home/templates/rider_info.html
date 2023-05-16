@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Riders Information</title>
+{% endblock %}
+
+{% block content %}
+<section id="yourRide">
+    <div class="container">
+        {% if riders_profile %}
+        <h2 class="mb-5">All Your Riders</h2>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Sr No.</th>
+                <th scope="col">Riders Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for riders in riders_profile %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{riders.first_name}} {{riders.last_name}}</td>
+                    <td><a href="{% url 'home:profile' riders.username%}">{{riders.username}}</a></td>
+                    <td>{{riders.email}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <h2 class="mb-5">No one has booked your ride yet!</h2>
+          {% endif %}
+    </div>
+</section>
+{% endblock content %}
