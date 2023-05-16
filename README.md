@@ -4,11 +4,9 @@ This repository contains a Django-based web application for car sharing. The app
 
 ## Features
 
-- User registration and authentication
+- User registration and authentication(using email verification)
 - Car listing and search functionality
-- Booking and reservation system
-- Payment integration
-- User rating and feedback system
+- Booking and reservation system(single seats and multiple)
 - Admin dashboard for managing users, cars, and bookings
 
 ## Installation
