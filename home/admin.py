@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Profile, Contact
+from .models import Post, Profile, Contact, Booking
 
 # Register your models here.
 
@@ -13,7 +13,11 @@ class ProfileAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
     list_display=('name','email','phone','desc','time')
 
+# class ContactAdmin(admin.ModelAdmin):
+#     list_display=('name','email','phone','desc','time')
+
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Contact, ContactAdmin)
+admin.site.register(Booking)

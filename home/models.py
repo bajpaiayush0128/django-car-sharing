@@ -10,6 +10,7 @@ User = settings.AUTH_USER_MODEL
 class Post(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, default=1, blank=True, null=True)
+    # riders = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     car_name = models.CharField(max_length=120)
     date_of_trip = models.DateField(default=timezone.now)
     time_of_trip = models.TimeField(default=timezone.now)
@@ -44,3 +45,12 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name + '-' + self.email 
+
+# This model is savig ride information
+class Booking(models.Model):
+    post=models.ForeignKey("Post", on_delete=models.CASCADE)
+    riders_id=models.IntegerField(blank=True, null=True)
+    seats_booked=models.IntegerField(blank=True, null=True, default=0)
+
+
+

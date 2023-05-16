@@ -197,14 +197,28 @@ def rides(request):
 
         return render(request, "allRides.html", context)
 
+def booking(request, pk):
+    if request.user.is_authenticated:
+        bookings=Booking.objects.filter(riders_id=pk)
+
+        context={'bookings':bookings}
+        return render(request, "yourBookings.html", context)
+
 
 def decrease_counter(request, pk):
     if request.method == "POST":
         ride = Post.objects.get(id=pk)
         # getting number_of_passenger through url get method
         number=request.GET.get('number')
+        number=number if number else 1
+        print(number)
         ride.vacant_seats = F('vacant_seats') - number
         ride.save()
+        
+        # This model is savig ride information
+        bookings=Booking(post=ride, riders_id=request.user.id, seats_booked=number)
+        bookings.save()
+
         return render(request, "success.html")
 
 

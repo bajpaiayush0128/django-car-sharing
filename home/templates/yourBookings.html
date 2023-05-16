@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Your Rides</title>
+{% endblock %}
+
+{% block content %}
+<section id="yourRide">
+    <div class="container">
+        {% if bookings %}
+        <h2 class="mb-5">Your Bookings</h2>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Sr No.</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Car Name</th>
+                <th scope="col">Seats Booked</th>
+                <th scope="col">Price</th>
+                {% comment %} <th scope="col">Actions</th> {% endcomment %}
+              </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{booking.post.source}}</td>
+                    <td>{{booking.post.destination}}</td>
+                    <td>{{booking.post.date_of_trip}}</td>
+                    <td>{{booking.post.time_of_trip}}</td>
+                    <td>{{booking.post.car_name}}</td>
+                    <td>{{booking.seats_booked}}</td>
+                    <td>{{booking.post.price}}</td>
+                    {% comment %} <td><i class="edit fa-regular fa-pen-to-square" onclick="location.href='/updateRide/{{ride.id}}'" title="Edit your Ride"></i>
+                        <i class="edit fa-regular fa-trash-can ml-3 mt-1" onclick="location.href='/deleteRide/{{ride.id}}'" title="Delete your Ride"></i></td> {% endcomment %}
+                      {% comment %} {% url 'deleteRide' ride.id %} {% endcomment %}
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <h2 class="mb-5">You did not booked any rides yet!</h2>
+          {% endif %}
+    </div>
+</section>
+{% endblock content %}
