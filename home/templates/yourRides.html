@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <title>Your Rides</title>
+  {% endblock %}
+
+{% block content %}
+<section id="yourRide">
+    <div class="container">
+        <h2 class="mb-5">Your Rides</h2>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Sr No.</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Car Name</th>
+                <th scope="col">Vacant Seat</th>
+                <th scope="col">Price</th>
+                <th scope="col">List of Riders</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for ride in rides %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{ride.source}}</td>
+                    <td>{{ride.destination}}</td>
+                    <td>{{ride.date_of_trip}}</td>
+                    <td>{{ride.time_of_trip}}</td>
+                    <td>{{ride.car_name}}</td>
+                    <td>{{ride.vacant_seats}}</td>
+                    <td>{{ride.price}}</td>
+                    <td><a href="{% url 'home:riderInfo' ride.id%}">List of riders</a></td>
+                    <td><i class="edit fa-regular fa-pen-to-square" onclick="location.href='/updateRide/{{ride.id}}'" title="Edit your Ride"></i>
+                        <i class="edit fa-regular fa-trash-can ml-3 mt-1" onclick="location.href='/deleteRide/{{ride.id}}'" title="Delete your Ride"></i></td>
+                      {% comment %} {% url 'deleteRide' ride.id %} {% endcomment %}
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</section>
+{% endblock content %}

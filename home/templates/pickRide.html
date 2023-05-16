@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+<title>Pick Your Ride</title>
+{% endblock head %}
+
+{% block rideactive %}active{% endblock rideactive %}
+
+{% block content %}
+<section id="pickRide">
+    <div class="container d-block my-2 px-0 pb-5">
+        <h2 class="py-3">Pick your Ride</h2>
+        <form name="ChooseRideForm" action="{% url 'home:rides' %}" method="post" class="text-left">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="leave">From</label>
+                <input type="text" class="form-control" id="leave" name="leave" placeholder="Leaving From..."
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="arrive">To</label>
+                <input type="text" class="form-control" id="arrive" name="arrive" placeholder="Going To..."
+                    required>
+            </div>
+            <div class="form-group">
+                <!-- Input field along with
+                calendar icon and -->
+                <!-- <div class="input-group date "> -->
+                    <!-- Sets the calendar icon -->
+                    <!-- <span class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar calenderIcon"></i>
+                        </span>
+                    </span> -->
+                    <!-- Accepts the input from calendar -->
+                    <label for="date">Date</label>
+                    <input class="form-control" type="date" placeholder="Depature date..." name="date">
+                <!-- </div> -->
+            </div>
+            <div class="form-group">
+
+                <label for="number">No. of Passengers</label>
+                <div class="input-group number-spinner">
+                    <span class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-circle-minus" data-dir="dwn"></i>
+                        </span>
+                    </span>
+                    <input type="number" class="form-control" placeholder="No. of Passengers"
+                        autocomplete="off" name="number" oninput="validity.valid||(value='');" min="0" step="1" maxlength="10">
+                    <span class="input-group-prepend" data-dir="up">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-circle-plus"></i>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-info">Search</button>
+        </form>
+    </div>
+</section>
+{% endblock content %}

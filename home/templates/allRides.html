@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block allRidesactive %}active{% endblock allRidesactive %}
+
+{% block head %}
+<title>All Rides</title>
+<!-- CSS script -->
+<link rel="stylesheet" href="{% static 'rides.css' %}" />
+{% endblock head %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="my-3 d-flex">Available Rides:-</h2>
+        {% include 'rideCards.html' %}
+    {% endblock %}
