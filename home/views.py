@@ -339,11 +339,16 @@ def editProfile(request):
     return render(request, "editProfile.html")
 
 def profile(request, username):
-    context={}
-    profile=Profile.objects.get(user=username)
-    context={'profile':profile}
-    
-    return render(request, "profile.html", context)
+    try:
+        profile = Profile.objects.get(user=username)
+        context = {'profile': profile}
+        return render(request, "profile.html", context)
+    except Profile.DoesNotExist:
+        # Handle the case where the profile does not exist
+        # For example, you can redirect to a 404 page
+        profile = user.objects.get(username=username)
+        context = {'profile': profile}
+        return render(request, "profile.html", context)  # Create a 404.html template in your templates folder
 
 def activate(request, uidb64, token):
     try:
