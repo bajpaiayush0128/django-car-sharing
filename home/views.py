@@ -22,7 +22,7 @@ from django.contrib.auth.models import User
 def home(request):
     context={}
     if request.user.is_authenticated:
-        profile=Profile.objects.get(user=request.user)
+        profile=User.objects.get(username=request.user)
         context={'profile':profile}
     return render(request, "homepage.html", context)
 
@@ -346,7 +346,7 @@ def profile(request, username):
     except Profile.DoesNotExist:
         # Handle the case where the profile does not exist
         # For example, you can redirect to a 404 page
-        profile = user.objects.get(username=username)
+        profile = User.objects.get(username=username)
         context = {'profile': profile}
         return render(request, "profile.html", context)  # Create a 404.html template in your templates folder
 
